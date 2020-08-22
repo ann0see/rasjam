@@ -1,0 +1,10 @@
+[Unit]
+Description=Enables remote ssh access via reverse ssh
+After=sshd.service
+
+[Service]
+Type=simple
+User=pi
+ExecStart=#ssh -R
+[Install]
+WantedBy=multi-user.target

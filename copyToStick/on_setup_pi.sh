@@ -8,8 +8,31 @@ read -n 1
 # set an unique name of this device
 echo "Generating hostname..."
 hostname=`cat /proc/sys/kernel/random/uuid`
-# get devies from folder in devices which were already setup
-devicesList=$(ls -d devices/dev_*)
+# get devices from folder in devices which were already setup
+# if the devices list is empty, we need don't have any port numbers set. Set the default port number.
+# https://askubuntu.com/questions/1147681/how-to-pass-a-regex-when-finding-a-directory-path-in-bash
+for dir in devices/*/
+do
+  if [[ ${dir} =~ "dev_" ]]
+  then
+    break
+  fi
+done
+if ((${#BASH_REMATCH[@]} > 0))
+  then # directories exist
+    devicesList=$(ls -d devices/dev_*)
+    # generate ssh port
+    # get all ports and sort them
+    ports=$(cat devices/dev_*/ssh-port-bind.txt | sort -V)
+    # get the last (= highest port in list)
+    port=$(echo $ports | grep -oE '[^ ]+$')
+    port=$((++port))
+  else
+    echo "Newly creating device folder. This is probably the first run."
+    devicesList=''
+    port=50000
+fi
+
 # check if the device already exists
 while true;
 do
@@ -23,9 +46,20 @@ do
   fi
 done
 # make a device folder
+
 echo "Making directory..."
 folderName=devices/dev_${hostname}
-mkdir ${folderName}
+if [ ! -d "${folderName}" ]
+  then
+    mkdir ${folderName}
+  else
+    echo "FATAL ERROR: ${folderName} already exists. Something went wrong. This should never happen."
+    exit 1
+fi
+# echo the port into the file
+echo "New port for reverse ssh will be:"
+echo ${port}
+echo ${port} > ${folderName}/ssh-port-bind.txt
 
 echo "Setting hostname..."
 # now set the new hostname
@@ -40,10 +74,12 @@ echo "Regenerating ssh-keys..."
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
 systemctl restart sshd
+su pi -c "ssh-keygen -q -t ed25519 -f ~/.ssh/pi_sshkey -N '' <<< ""$'\n'"y" 2>&1 >/dev/null"
 echo "Copying new ssh-keys to ${folderName}/ssh/"
 # get the ssh keys of this device
 mkdir ${folderName}/ssh/
 cp /etc/ssh/*.pub ${folderName}/ssh/
+cp /home/pi/.ssh/pi_sshkey.pub ${folderName}/ssh/pi_sshkey.pub
 
 echo "Set new password for pi"
 # generate a random password for pi
