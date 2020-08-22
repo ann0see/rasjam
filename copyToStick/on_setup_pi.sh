@@ -104,7 +104,8 @@ echo "dtoverlay=disable-wifi" >> /boot/config.txt
 # disable bluetooth modems conn by uart (blog.sleeplessbeastie.eu)
 systemctl disable hciuart
 # remove bt
-apt remove bluez -y
+apt remove bluez triggerhappy avahi-daemon -y
+apt autoremove
 # set automatic boot to openbox
 
 echo "Copying files to Raspberry Pi..."
