@@ -1,0 +1,10 @@
+table Icon
+  Caption: Jamulus
+  Command: /usr/local/bin/Jamulus
+  Icon: /home/pi/.idesktop/jamulusicon.png
+  Width: 48
+  Height: 48
+  X: 29
+  Y: 19
+end
+
