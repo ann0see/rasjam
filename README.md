@@ -2,6 +2,14 @@
 Currently in planning phase.
 This project has the goal to manage and setup multiple Raspberry Pis using Jamulus from a central server.
 This is mainly for large groups wanting to jam together and needing a simple setup.
+# What should be done? (Suggested workflow)
+1. Setup Jamulus and admin server
+2. Compile Jamulus with a script
+3. Move the copyToStick folder to a stick
+4. Burn multiple raspbian light SDs
+5. Connect the stick to all the raspis
+6. Run a script from the stick
+7. After all the raspis, upload SSH keys to the server
 
 ## Thoughts: 
 
