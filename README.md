@@ -9,6 +9,6 @@ One person (leader) sets up a jamulus server to which all clients (Raspis) conne
 All Raspberry Pis reverse ssh into the server to allow the admin to update/... the clients
 All Raspberry Pis run a headless (?) build of jamulus client which is somehow locally controlled (webbrowser, MIDI controller,...)
 All Raspberry Pis automatically setup and start jamulus if they are switched on
-All Raspberry Pis are centralli managed e.g. via ansible
+All Raspberry Pis are centrally managed e.g. via ansible
 
  
