@@ -1,5 +1,5 @@
 # RasJam
-Currently in planning phase
+Currently in planning phase.
 This project has the goal to manage and setup multiple Raspberry Pis using Jamulus from a central server.
 This is mainly for large groups wanting to jam together and needing a simple setup.
 
