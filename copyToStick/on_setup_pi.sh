@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Please execute this all Raspberry PIs. Press any key to continue or ctrl+c to abort"
 read -n 1
 # check if general-config file exists
@@ -7,7 +8,8 @@ if [[ ! -f "config/general-config.conf" ]]
     echo "ERROR: Could not find general-config.conf file. Please create one in config/general-config.conf. See config/general-config.conf.example for example."
     exit 1
 fi
-
+# set version of rasJam to be installed
+rasJamVersion=$(cat config/rasjamversion)
 exit 0
 # install and download dependencies
 # apt update && apt full-upgrade -y
@@ -72,9 +74,10 @@ mkdir /etc/rasjam
 echo ${port} > /etc/rasjam/remote-access-port.config
 # general config file for all pis (mainly including server IPs)
 cp config/general-config.conf /etc/rasjam/general-config.conf
+# for the keys
 mkdir /etc/rasjam/ssh
-# add pi to the audio group
-
+# for the rasjam version
+echo ${rasJamVersion} > /etc/rasjam/rasjamversion
 # Regenerate ssh-keys
 echo "Regenerating ssh-keys..."
 systemctl enable sshd
@@ -120,5 +123,6 @@ adduser pi audio
 
 # copy the jamulus binary
 echo "Copying Jamulus binary"
+
 #cp files/Jamulus/Jamulus/ /usr/local/bin/
 # done for now; TODO: Auto boot to jamulus. How can we access the settings/...
