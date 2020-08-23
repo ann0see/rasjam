@@ -10,7 +10,7 @@ if [[ ! -f "config/general-config.conf" ]]
 fi
 # set version of rasJam to be installed
 rasJamVersion=$(cat config/rasjamversion)
-exit 0
+
 # install and download dependencies
 # apt update && apt full-upgrade -y
 # apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
