@@ -21,3 +21,5 @@ This is mainly for large groups wanting to jam together and needing a simple set
 * During setup phase admin executes a script on every pi which sets up jamulus and the ssh tunnel and gets the ssh key of the raspi
 * Passwords are saved in plain text on the USB Stick. What about security?
 * Integrate an update API (authinticated. Maybe via PHP?)
+* What should we do with the ssh key signature of the api server (see sshAccess/startReverseSSHTunnel.sh)? Can we just trust anything???
+* On SSH-Key update on server we must send a update message to all the clients

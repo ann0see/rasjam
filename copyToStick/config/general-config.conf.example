@@ -1,0 +1,7 @@
+jamulus_server=0.0.0.0
+api_server=0.0.0.0
+api_server_ssh_port=22
+api_server_user_name=rasjam
+local_pi_ssh_port=22
+
+api_server_api_url=https://0.0.0.0/api/api.php
