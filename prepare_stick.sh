@@ -7,5 +7,6 @@ cd jamulus
 qmake "CONFIG+=headless" Jamulus.pro
 make clean
 make
+cd -
 mkdir copyToStick/files/Jamulus/
 cp Jamulus copyToStick/files/Jamulus/
