@@ -17,7 +17,7 @@ This is mainly for large groups wanting to jam together and needing a simple set
 * All Raspberry Pis reverse ssh into the server to allow the admin to update/... the clients
 * All Raspberry Pis run a headless (?) build of jamulus client which is somehow locally controlled (webbrowser, MIDI controller,...)
 * All Raspberry Pis automatically start jamulus and connect to the server if switched on
-* All Raspberry Pis are centrally managed e.g. via ansible
+* All Raspberry Pis are centrally managed e.g. via ansible/ Updates: own apt repo?
 * During setup phase admin executes a script on every pi which sets up jamulus and the ssh tunnel and gets the ssh key of the raspi
 * Passwords are saved in plain text on the USB Stick. What about security?
 * Integrate an update API (authinticated. Maybe via PHP?)
