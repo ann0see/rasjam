@@ -4,6 +4,7 @@ apt install git build-essential qtdeclarative5-dev qt5-default qttools5-dev-tool
 cd /tmp
 git clone https://github.com/corrados/jamulus.git
 cd jamulus
+qmake "CONFIG+=headless" Jamulus.pro
 make clean
 make
 mkdir copyToStick/files/Jamulus/

@@ -3,7 +3,7 @@ echo "Please execute this all raspberry pis. Press any key to continue or ctrl+c
 read -n 1
 # install and download dependencies
 # apt update && apt full-upgrade -y
-# apt install -y openssh-server xorg git idesk openbox obmenu qjackctl jackd qtdeclarative5-dev qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
+# apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
@@ -96,9 +96,6 @@ apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove
 
 echo "Copying files to Raspberry Pi..."
-# copy files from stick to raspi
-#cp -r files/openbox/* /home/pi/.config/openbox/
-#cp -r files/idesktop /home/pi/.idesktop
 
 # add pi to the audio group
 echo "Add pi to audio group..."
@@ -107,4 +104,4 @@ adduser pi audio
 # copy the jamulus binary
 echo "Copying Jamulus binary"
 cp files/Jamulus/Jamulus/ /usr/local/bin/
-# done for now; TODO: Auto boot to jamulus
+# done for now; TODO: Auto boot to jamulus. How can we access the settings/...
