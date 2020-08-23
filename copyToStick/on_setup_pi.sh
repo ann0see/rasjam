@@ -12,8 +12,8 @@ fi
 rasJamVersion=$(cat config/rasjamversion)
 
 # install and download dependencies
-# apt update && apt full-upgrade -y
-# apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
+apt update && apt full-upgrade -y
+apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
