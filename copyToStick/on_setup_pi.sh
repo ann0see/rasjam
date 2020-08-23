@@ -20,17 +20,17 @@ apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qtt
 # https://askubuntu.com/questions/1147681/how-to-pass-a-regex-when-finding-a-directory-path-in-bash
 for dir in devices/*/
 do
-  if [[ ${dir} =~ "rasjam_" ]]
+  if [[ ${dir} =~ "rasjam" ]]
   then
     break
   fi
 done
 if ((${#BASH_REMATCH[@]} > 0))
   then # directories exist
-    devicesList=$(ls -d devices/rasjam_*)
+    devicesList=$(ls -d devices/rasjam*)
     # generate ssh port
     # get all ports and sort them
-    ports=$(cat devices/rasjam_*/ssh-port-bind.txt | sort -V)
+    ports=$(cat devices/rasjam*/ssh-port-bind.txt | sort -V)
     # get the last (= highest port in list)
     port=$(echo $ports | grep -oE '[^ ]+$')
     port=$((++port))
@@ -39,8 +39,8 @@ if ((${#BASH_REMATCH[@]} > 0))
     devicesList=''
     port=50000
 fi
-# the hostname will be rasjam_${port}
-hostname="rasjam_${port}"
+# the hostname will be rasjam${port}
+hostname="rasjam${port}"
 
 # make a device folder
 folderName=devices/${hostname}
@@ -116,7 +116,7 @@ echo "dtoverlay=disable-wifi" >> /boot/config.txt
 systemctl disable hciuart
 # remove bt
 apt remove bluez triggerhappy avahi-daemon -y
-apt autoremove
+apt autoremove -y
 
 echo "Add pi to audio group..."
 adduser pi audio
