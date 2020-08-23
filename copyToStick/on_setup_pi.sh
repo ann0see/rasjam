@@ -1,6 +1,14 @@
 #!/bin/bash
-echo "Please execute this all raspberry pis. Press any key to continue or ctrl+c to abort"
+echo "Please execute this all Raspberry PIs. Press any key to continue or ctrl+c to abort"
 read -n 1
+# check if general-config file exists
+if [[ ! -f "config/general-config.conf" ]]
+  then
+    echo "ERROR: Could not find general-config.conf file. Please create one in config/general-config.conf. See config/general-config.conf.example for example."
+    exit 1
+fi
+
+exit 0
 # install and download dependencies
 # apt update && apt full-upgrade -y
 # apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
@@ -56,8 +64,20 @@ hostname -b ${hostname}
 echo "New hostname:"
 hostname
 
+# copy config files
+echo "Copying config files to Raspberry Pi..."
+# make config folder
+mkdir /etc/rasjam
+# copy the port name to a file
+echo ${port} > /etc/rasjam/remote-access-port.config
+# general config file for all pis (mainly including server IPs)
+cp config/general-config.conf /etc/rasjam/general-config.conf
+mkdir /etc/rasjam/ssh
+# add pi to the audio group
+
 # Regenerate ssh-keys
 echo "Regenerating ssh-keys..."
+systemctl enable sshd
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
 systemctl restart sshd
@@ -95,13 +115,10 @@ systemctl disable hciuart
 apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove
 
-echo "Copying files to Raspberry Pi..."
-
-# add pi to the audio group
 echo "Add pi to audio group..."
 adduser pi audio
 
 # copy the jamulus binary
 echo "Copying Jamulus binary"
-cp files/Jamulus/Jamulus/ /usr/local/bin/
+#cp files/Jamulus/Jamulus/ /usr/local/bin/
 # done for now; TODO: Auto boot to jamulus. How can we access the settings/...
