@@ -5,25 +5,22 @@ read -n 1
 # apt update && apt full-upgrade -y
 # apt install -y openssh-server xorg git idesk openbox obmenu qjackctl jackd qtdeclarative5-dev qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
 
-# set an unique name of this device
-echo "Generating hostname..."
-hostname=`cat /proc/sys/kernel/random/uuid`
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
 # https://askubuntu.com/questions/1147681/how-to-pass-a-regex-when-finding-a-directory-path-in-bash
 for dir in devices/*/
 do
-  if [[ ${dir} =~ "dev_" ]]
+  if [[ ${dir} =~ "rasjam_" ]]
   then
     break
   fi
 done
 if ((${#BASH_REMATCH[@]} > 0))
   then # directories exist
-    devicesList=$(ls -d devices/dev_*)
+    devicesList=$(ls -d devices/rasjam_*)
     # generate ssh port
     # get all ports and sort them
-    ports=$(cat devices/dev_*/ssh-port-bind.txt | sort -V)
+    ports=$(cat devices/rasjam_*/ssh-port-bind.txt | sort -V)
     # get the last (= highest port in list)
     port=$(echo $ports | grep -oE '[^ ]+$')
     port=$((++port))
@@ -32,23 +29,12 @@ if ((${#BASH_REMATCH[@]} > 0))
     devicesList=''
     port=50000
 fi
+# the hostname will be rasjam_${port}
+hostname="rasjam_${port}"
 
-# check if the device already exists
-while true;
-do
-  if [[ ${devicesList} =~ "${hostname}" ]]
-    then
-      #generate a new hostname
-      echo "Regenerating new hostname. This shouldn't come up often."
-      hostname=`cat /proc/sys/kernel/random/uuid`
-    else
-      break # the name is unique
-  fi
-done
 # make a device folder
-
-echo "Making directory..."
-folderName=devices/dev_${hostname}
+folderName=devices/${hostname}
+echo "Making directory ${folderName}..."
 if [ ! -d "${folderName}" ]
   then
     mkdir ${folderName}
@@ -56,25 +42,27 @@ if [ ! -d "${folderName}" ]
     echo "FATAL ERROR: ${folderName} already exists. Something went wrong. This should never happen."
     exit 1
 fi
+
 # echo the port into the file
 echo "New port for reverse ssh will be:"
 echo ${port}
 echo ${port} > ${folderName}/ssh-port-bind.txt
 
-echo "Setting hostname..."
-# now set the new hostname
+# set hostname
+echo "Setting hostname to ${hostname}..."
 echo "Old hostname:"
 hostname
 hostname -b ${hostname}
 echo "New hostname:"
 hostname
 
+# Regenerate ssh-keys
 echo "Regenerating ssh-keys..."
-# generate new ssh keys
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
 systemctl restart sshd
 su pi -c "ssh-keygen -q -t ed25519 -f ~/.ssh/pi_sshkey -N '' <<< ""$'\n'"y" 2>&1 >/dev/null"
+
 echo "Copying new ssh-keys to ${folderName}/ssh/"
 # get the ssh keys of this device
 mkdir ${folderName}/ssh/
@@ -106,12 +94,11 @@ systemctl disable hciuart
 # remove bt
 apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove
-# set automatic boot to openbox
 
 echo "Copying files to Raspberry Pi..."
 # copy files from stick to raspi
-cp -r files/openbox/* /home/pi/.config/openbox/
-cp -r files/idesktop /home/pi/.idesktop
+#cp -r files/openbox/* /home/pi/.config/openbox/
+#cp -r files/idesktop /home/pi/.idesktop
 
 # add pi to the audio group
 echo "Add pi to audio group..."
