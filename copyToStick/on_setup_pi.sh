@@ -60,12 +60,7 @@ echo ${port} > ${folderName}/ssh-port-bind.txt
 
 # set hostname
 echo "Setting hostname to ${hostname}..."
-echo "Old hostname:"
-hostname
-hostname -b ${hostname}
-echo "New hostname:"
-hostname
-
+hostnamectl set-hostname ${hostname}
 # copy config files
 echo "Copying config files to Raspberry Pi..."
 # make config folder
@@ -124,5 +119,5 @@ adduser pi audio
 # copy the jamulus binary
 echo "Copying Jamulus binary"
 
-cp files/Jamulus/Jamulus/ /usr/local/bin/
+cp files/Jamulus/Jamulus /usr/local/bin/
 # done for now; TODO: Auto boot to jamulus. How can we access the settings/...
