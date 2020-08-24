@@ -11,9 +11,12 @@ fi
 # set version of rasJam to be installed
 rasJamVersion=$(cat config/rasjamversion)
 
+# remove bt
+apt remove bluez triggerhappy avahi-daemon -y
+apt autoremove -y
 # install and download dependencies
 apt update && apt full-upgrade -y
-apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-jackd2-dev
+apt install -y jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-jackd2-dev
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
@@ -109,9 +112,6 @@ echo "dtoverlay=disable-bt" >> /boot/config.txt
 echo "dtoverlay=disable-wifi" >> /boot/config.txt
 # disable bluetooth modems conn by uart (blog.sleeplessbeastie.eu)
 systemctl disable hciuart
-# remove bt
-apt remove bluez triggerhappy avahi-daemon -y
-apt autoremove -y
 
 echo "Add pi to audio group..."
 adduser pi audio
