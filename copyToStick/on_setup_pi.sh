@@ -13,7 +13,7 @@ rasJamVersion=$(cat config/rasjamversion)
 
 # install and download dependencies
 apt update && apt full-upgrade -y
-apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-libjackd2-dev
+apt install -y openssh-server git jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-jackd2-dev
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
@@ -80,10 +80,10 @@ mkdir /etc/rasjam/ssh
 echo ${rasJamVersion} > /etc/rasjam/rasjamversion
 # Regenerate ssh-keys
 echo "Regenerating ssh-keys..."
-systemctl enable sshd
+systemctl enable ssh
 rm /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
-systemctl restart sshd
+systemctl restart ssh
 su pi -c "ssh-keygen -q -t ed25519 -f ~/.ssh/pi_sshkey -N '' <<< ""$'\n'"y" 2>&1 >/dev/null"
 
 echo "Copying new ssh-keys to ${folderName}/ssh/"
@@ -124,5 +124,5 @@ adduser pi audio
 # copy the jamulus binary
 echo "Copying Jamulus binary"
 
-#cp files/Jamulus/Jamulus/ /usr/local/bin/
+cp files/Jamulus/Jamulus/ /usr/local/bin/
 # done for now; TODO: Auto boot to jamulus. How can we access the settings/...
