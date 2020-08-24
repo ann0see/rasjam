@@ -68,6 +68,7 @@ hostnamectl set-hostname ${hostname}
 echo "Copying config files to Raspberry Pi..."
 # make config folder
 mkdir /etc/rasjam
+
 # copy the port name to a file
 echo ${port} > /etc/rasjam/remote-access-port.config
 # general config file for all pis (mainly including server IPs)
@@ -76,6 +77,13 @@ cp config/general-config.conf /etc/rasjam/general-config.conf
 mkdir /etc/rasjam/ssh
 # for the rasjam version
 echo ${rasJamVersion} > /etc/rasjam/rasjamversion
+chown -R pi:pi /etc/rasjam/
+# copy the api scripts
+mkdir /usr/rasjam
+cp files/api /usr/rasjam/
+chown root:pi /usr/rasjam
+chmod 770 /usr/rasjam
+# setup systemd start of api scripts (to be done)
 # Regenerate ssh-keys
 echo "Regenerating ssh-keys..."
 systemctl enable ssh

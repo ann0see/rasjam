@@ -1,3 +1,4 @@
 pw.txt
 copyToStick/devices/rasjam_*
 copyToStick/config/general-config.conf
+copyToStick/fromServer/sshKey/*.pub
