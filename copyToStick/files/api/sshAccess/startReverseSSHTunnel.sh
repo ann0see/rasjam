@@ -13,4 +13,4 @@ if [[ ! -f "/etc/rasjam/ssh/key_saved" ]]
 fi
 echo "Starting Reverse ssh tunnel to ${api_server} on port ${api_server_ssh_port}"
 # we could use autossh one day
-ssh -p${api_server_ssh_port} -R l ${port}:localhost:${local_pi_ssh_port} ${api_server_user_name}@${api_server} -i /home/pi/.ssh/pi_sshkey
+ssh -p${api_server_ssh_port} -R ${port}:localhost:${local_pi_ssh_port} ${api_server_user_name}@${api_server} -i /home/pi/.ssh/pi_sshkey
