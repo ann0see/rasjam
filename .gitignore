@@ -3,3 +3,4 @@ copyToStick/devices/rasjam*
 copyToStick/config/general-config.conf
 copyToStick/fromServer/sshKey/*.pub
 copyToStick/files/Jamulus/*
+copyToStick/config/jackd/jackdrc

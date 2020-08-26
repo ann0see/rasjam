@@ -147,6 +147,6 @@ cp -r files/openbox /home/jamulus/.config/
 chown -R jamulus:jamulus /home/jamulus/.config/openbox
 cp -r files/Jamulus /home/jamulus/.config/Jamulus
 chown -R jamulus:jamulus /home/jamulus/.config/Jamulus
-cp -r files/jackd/jackdrc /home/jamulus/.jackdrc
+cp -r config/jackd/jackdrc /home/jamulus/.jackdrc
 chown jamulus:jamulus /home/jamulus/.jackdrc
 cp files/slim/slim.conf /etc/slim.conf
