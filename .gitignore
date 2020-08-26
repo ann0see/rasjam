@@ -2,4 +2,4 @@ pw*.txt
 copyToStick/devices/rasjam*
 copyToStick/config/general-config.conf
 copyToStick/fromServer/sshKey/*.pub
-
+copyToStick/files/Jamulus/*
