@@ -1,0 +1,10 @@
+table Icon
+  Caption: Jamulus
+  Command: /usr/local/bin/Jamulus
+  Icon: /usr/share/idesk/folder_home.xpm
+  Width: 48
+  Height: 48
+  X: 89
+  Y: 39
+end
+

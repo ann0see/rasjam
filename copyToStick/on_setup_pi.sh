@@ -16,7 +16,7 @@ apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove -y
 # install and download dependencies
 apt update && apt full-upgrade -y
-apt install -y jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-jackd2-dev
+apt install -y slim openbox jackd qt5-default qttools5-dev qt5-default qttools5-dev-tools libjack-jackd2-dev
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
@@ -80,7 +80,7 @@ echo ${rasJamVersion} > /etc/rasjam/rasjamversion
 chown -R pi:pi /etc/rasjam/
 # copy the api scripts
 mkdir /usr/rasjam
-cp files/api /usr/rasjam/
+cp -r files/api /usr/rasjam/
 chown root:pi /usr/rasjam
 chmod 770 /usr/rasjam
 # setup systemd start of api scripts (to be done)
@@ -107,6 +107,15 @@ echo ${pw} > ${folderName}/pw.txt
 echo "Setting password..."
 echo -e "${pw}\n${pw}" | passwd pi
 
+# create new jamulus unprivileged user
+echo "Add new Jamulus user..."
+useradd --create-home -s /bin/bash jamulus
+pw=`head /dev/hwrng | tr -dc A-Za-z0-9 | head -c 10`
+echo "Saving password for jamulus..."
+echo ${pw} > ${folderName}/pw_Jamulus.txt
+echo "Setting password..."
+echo -e "${pw}\n${pw}" | passwd jamulus
+
 echo "Enabling maximal cpu performance..."
 cp files/systemd/jaminst_cpugov_set_performance.service /etc/systemd/system/
 # disable auto governor set via raspi-config service
@@ -121,11 +130,23 @@ echo "dtoverlay=disable-wifi" >> /boot/config.txt
 # disable bluetooth modems conn by uart (blog.sleeplessbeastie.eu)
 systemctl disable hciuart
 
-echo "Add pi to audio group..."
-adduser pi audio
+echo "Add jamulus to audio group..."
+adduser jamulus audio
 
 # copy the jamulus binary
 echo "Copying Jamulus binary"
 
 cp files/Jamulus/Jamulus /usr/local/bin/
-# done for now; TODO: Auto boot to jamulus. How can we access the settings/...
+# copy files for graphical interface
+echo "Setting up GUI and files..."
+mkdir /home/jamulus/.config
+chown jamulus:jamulus /home/jamulus/.config
+cp -r files/idesktop /home/jamulus/.idesktop
+chown -R jamulus:jamulus /home/jamulus/.idesktop
+cp -r files/openbox /home/jamulus/.config/
+chown -R jamulus:jamulus /home/jamulus/.config/openbox
+cp -r files/Jamulus /home/jamulus/.config/Jamulus
+chown -R jamulus:jamulus /home/jamulus/.config/Jamulus
+cp -r files/jackd/jackdrc /home/jamulus/.jackdrc
+chown jamulus:jamulus /home/jamulus/.jackdrc
+cp files/slim/slim.conf /etc/slim.conf

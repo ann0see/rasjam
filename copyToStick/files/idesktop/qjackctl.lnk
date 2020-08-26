@@ -1,0 +1,10 @@
+table Icon
+  Caption: Audio Setup (qjackctl)
+  Command: /usr/bin/qjackctl
+  Icon: /usr/share/idesk/folder_home.xpm
+  Width: 48
+  Height: 48
+  X: 89
+  Y: 229
+end
+
