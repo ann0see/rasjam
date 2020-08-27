@@ -14,12 +14,12 @@ This is mainly for large groups wanting to jam together and needing a simple set
 ## Thoughts:
 
 * One person (admin) sets up a jamulus server to which all clients (Raspis) connect to.
-* All Raspberry Pis reverse ssh into the server to allow the admin to update/... the clients
-* All Raspberry Pis run a headless (?) build of jamulus client which is somehow locally controlled (webbrowser, MIDI controller,...)
-* All Raspberry Pis automatically start jamulus and connect to the server if switched on
+* All Raspberry Pis reverse ssh into the server to allow the admin to update/... the clients (script exists)
+* ~~All Raspberry Pis run a headless (?) build of jamulus client which is somehow locally controlled (not yet possible/moved away) (webbrowser, MIDI controller,...)~~ --> we use a small (touch) screen
+* All Raspberry Pis automatically start jamulus and connect to the server if switched on (todo: autostrat)
 * All Raspberry Pis are centrally managed e.g. via ansible/ Updates: own apt repo?
-* During setup phase admin executes a script on every pi which sets up jamulus and the ssh tunnel and gets the ssh key of the raspi
+* During setup phase admin executes a script on every pi which sets up jamulus and the ssh tunnel and gets the ssh key of the raspi (done)
 * Passwords are saved in plain text on the USB Stick. What about security?
-* Integrate an update API (authinticated. Maybe via PHP?)
+* Integrate an update API (authenticated. Maybe via PHP?)
 * What should we do with the ssh key signature of the api server (see sshAccess/startReverseSSHTunnel.sh)? Can we just trust anything???
 * On SSH-Key update on server we must send a update message to all the clients
