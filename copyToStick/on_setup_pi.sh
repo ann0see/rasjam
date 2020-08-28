@@ -17,7 +17,8 @@ apt autoremove -y
 # install and download dependencies
 apt update && apt full-upgrade -y
 apt install -y slim libpam-kwallet4 libpam-kwallet5 libpam-gnome-keyring openbox jackd libqt5core5a libqt5network5 libqt5xml5
-
+# minimal x-server install
+apt install --no-install-recommends xserver-xorg xinit
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
 # https://askubuntu.com/questions/1147681/how-to-pass-a-regex-when-finding-a-directory-path-in-bash
