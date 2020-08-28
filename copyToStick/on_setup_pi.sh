@@ -16,7 +16,7 @@ apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove -y
 # install and download dependencies
 apt update && apt full-upgrade -y
-apt install -y slim openbox jackd libqt5core5a libqt5network5 libqt5xml5
+apt install -y slim libpam-kwallet4 libpam-kwallet5 libpam-gnome-keyring openbox jackd libqt5core5a libqt5network5 libqt5xml5
 
 # get devices from folder in devices which were already setup
 # if the devices list is empty, we need don't have any port numbers set. Set the default port number.
