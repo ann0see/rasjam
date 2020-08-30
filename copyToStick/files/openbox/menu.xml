@@ -5,12 +5,12 @@
 		<menu id="root-menu-53263" label="Power options">
 			<item label="Reboot now">
 				<action name="Execute">
-					<execute>sudo reboot</execute>
+					<execute>sudo /sbin/reboot</execute>
 				</action>
 			</item>
 			<item label="Shutdown now">
 				<action name="Execute">
-					<execute>sudo shutdown -h -P now</execute>
+					<execute>sudo /sbin/shutdown -h -P now</execute>
 				</action>
 			</item>
 		</menu>

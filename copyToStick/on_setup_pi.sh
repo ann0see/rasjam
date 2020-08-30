@@ -116,7 +116,11 @@ echo "Saving password for jamulus..."
 echo ${pw} > ${folderName}/pw_Jamulus.txt
 echo "Setting password..."
 echo -e "${pw}\n${pw}" | passwd jamulus
+# Allow jamulus to reboot and shutdown
+echo "Allow Jamulus to reboot and shutdown"
 
+cp files/sudoers/allow_jamulus_power_options /etc/sudoers.d/allow_jamulus_power_options
+chmod 0440 /etc/sudoers.d/allow_jamulus_power_options
 echo "Enabling maximal cpu performance..."
 cp files/systemd/jaminst_cpugov_set_performance.service /etc/systemd/system/
 # disable auto governor set via raspi-config service
@@ -142,7 +146,8 @@ cp files/Jamulus/Jamulus /usr/local/bin/
 echo "Setting up GUI and files..."
 mkdir /home/jamulus/.config
 chown jamulus:jamulus /home/jamulus/.config
-cp -r files/idesktop /home/jamulus/.idesktop
+cp -r files/idesktop/config/* /home/jamulus/.idesktop/
+cp -r files/idesktop/background/background.png /home/jamulus/.idesktop/background.png
 chown -R jamulus:jamulus /home/jamulus/.idesktop
 cp -r files/openbox /home/jamulus/.config/
 chown -R jamulus:jamulus /home/jamulus/.config/openbox

@@ -1,0 +1,9 @@
+table Icon
+  Caption: Shutdown now
+  Command: sudo /sbin/shutdown -h -P now
+  Icon: /home/jamulus/.idesktop/icons/shutdown.png
+  Width: 48
+  Height: 48
+  X: 89
+  Y: 339
+end

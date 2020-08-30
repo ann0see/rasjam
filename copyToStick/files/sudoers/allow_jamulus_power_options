@@ -1,0 +1,3 @@
+# allow jamulus to shutdown
+jamulus ALL=(ALL) NOPASSWD: /sbin/shutdown -h -P now
+jamulus ALL=(ALL) NOPASSWD: /sbin/reboot
