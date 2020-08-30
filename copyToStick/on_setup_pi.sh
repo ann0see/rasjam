@@ -146,6 +146,7 @@ cp files/Jamulus/Jamulus /usr/local/bin/
 echo "Setting up GUI and files..."
 mkdir /home/jamulus/.config
 chown jamulus:jamulus /home/jamulus/.config
+mkdir /home/jamulus/.idesktop
 cp -r files/idesktop/config/* /home/jamulus/.idesktop/
 cp -r files/idesktop/background/background.png /home/jamulus/.idesktop/background.png
 chown -R jamulus:jamulus /home/jamulus/.idesktop
