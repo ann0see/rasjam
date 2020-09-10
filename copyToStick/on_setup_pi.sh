@@ -16,7 +16,8 @@ apt remove bluez triggerhappy avahi-daemon -y
 apt autoremove -y
 # install and download dependencies
 apt update && apt full-upgrade -y
-apt install -y slim openbox idesk jackd libqt5core5a libqt5network5 libqt5xml5
+apt install -y slim openbox idesk jackd libqt5core5a libqt5network5 libqt5xml5 libqt5concurrent5 unattended-upgrades
+
 # minimal x-server install
 apt install -y --no-install-recommends xserver-xorg xinit
 # get devices from folder in devices which were already setup
@@ -157,3 +158,5 @@ chown -R jamulus:jamulus /home/jamulus/.config/Jamulus
 cp -r config/jackd/jackdrc /home/jamulus/.jackdrc
 chown jamulus:jamulus /home/jamulus/.jackdrc
 cp files/slim/slim.conf /etc/slim.conf
+cp files/apt/20auto-upgrades /etc/apt/apt.conf.d/
+cp files/apt/50unattended-upgrades /etc/apt/apt.conf.d/
